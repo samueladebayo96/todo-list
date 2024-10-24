@@ -10,11 +10,15 @@ document
     event.preventDefault();
     const formData = getFormData();
     const title = formData["title"];
-    const list = formData["list"];
-    const task = new Task(id, title);
-    taskManager.addTask(task);
-    taskManager.renderTasks();
-    id++;
+    if (title !== "") {
+      const list = formData["list"];
+      const task = new Task(id, title);
+      taskManager.addTask(task);
+      taskManager.renderTasks();
+      id++;
+    } else {
+      errorMessage("Veuillez ajouter une tâche");
+    }
   });
 
 function getFormData() {
@@ -23,4 +27,16 @@ function getFormData() {
     form: document.getElementById("todoForm"),
     list: document.getElementById("todoList"),
   };
+}
+
+function errorMessage(msg) {
+  let errorMessage = document.getElementById("errorMessage");
+  let span = document.createElement("span");
+  errorMessage.appendChild(span);
+  errorMessage.innerHTML = msg;
+  console.log(errorMessage);
+  document.getElementById("errorMessage").style.display = "block";
+  setTimeout(() => {
+    document.getElementById("errorMessage").style.display = "none";
+  }, 5000);
 }
