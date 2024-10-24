@@ -1,7 +1,15 @@
 export default class Task {
   #id;
   #title;
-  constructor(title) {
+  constructor(id, title) {
+    this.#id = id;
     this.#title = title;
+  }
+
+  get id() {
+    return this.#id;
+  }
+  get title() {
+    return this.#title;
   }
 }

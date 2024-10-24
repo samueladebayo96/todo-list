@@ -2,23 +2,25 @@ import Task from "./app/Task.js";
 import TaskManager from "./app/TaskManager.js";
 
 const taskManager = new TaskManager();
+let id = 0;
 
 document
-  .getElementById("todo-form")
+  .getElementById("todoForm")
   .addEventListener("submit", function (event) {
     event.preventDefault();
     const formData = getFormData();
-    let title = formData["title"];
-    const task = new Task(title);
+    const title = formData["title"];
+    const list = formData["list"];
+    const task = new Task(id, title);
     taskManager.addTask(task);
-    const todo_list = document.getElementById("todo-list");
-    todo_list.innerHTML = taskManager.renderTasks();
+    taskManager.renderTasks();
+    id++;
   });
 
 function getFormData() {
   return {
     title: document.getElementById("title").value,
-    form: document.getElementById("todo-form"),
-    todo_list: document.getElementById("todo-list"),
+    form: document.getElementById("todoForm"),
+    list: document.getElementById("todoList"),
   };
 }
